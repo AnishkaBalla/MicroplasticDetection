@@ -9,15 +9,15 @@ export default function NavBar() {
     <View
       style={styles.navbar}
     >
-      <Pressable onPress={() => router.push("/")}>
+      <Pressable style={styles.navButton} onPress={() => router.push("/")}>
         <Text style={styles.navText}>Home</Text>
       </Pressable>
 
-      <Pressable onPress={() => router.push("/detector")}>
+      <Pressable style={styles.navButton} onPress={() => router.push("/detector")}>
         <Text style={styles.navText}>Detector</Text>
       </Pressable>
 
-      <Pressable onPress={() => router.push("/map")}>
+      <Pressable style={styles.navButton} onPress={() => router.push("/map")}>
         <Text style={styles.navText}>Map</Text>
       </Pressable>
     </View>
@@ -29,12 +29,24 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     padding: 18,
-    paddingBottom: 30,
+    paddingBottom: 15,
     borderTopWidth: 1,
     backgroundColor: "rgba(20, 51, 74, 0.69)",
   },
   navText: {
     color: "white",
     fontSize: 15,
+    fontWeight: "600",
+  },
+  navButton: {
+    minWidth: 84,
+    minHeight: 42,
+    paddingHorizontal: 14,
+    paddingVertical: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+
+
   }
 })

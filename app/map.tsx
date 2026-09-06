@@ -32,6 +32,7 @@ export default function Map() {
   });
 
   return (
+    
     <ImageBackground
       source={require("../assets/images/water.jpg")}
       style={styles.background}
