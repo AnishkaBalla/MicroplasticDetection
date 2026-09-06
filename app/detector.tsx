@@ -65,7 +65,7 @@ export default function DetectorScreen() {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 0.8,
-      base64: true, // Crucial: Extracts raw text Base64 bytes directly
+      base64: true, //request base64 data for direct Roboflow API submission
     });
 
     if (!result.canceled && result.assets && result.assets[0]) {
@@ -86,11 +86,11 @@ export default function DetectorScreen() {
     }
     setLoading(true);
 
-    // Using clean concatenation to avoid template-string parsing glitches
+    //concatenate the Roboflow model URL with the model ID
     const cleanUrl = "https://detect.roboflow.com/" + ROBOFLOW_MODEL_ID;
 
     try {
-      // Axios handles explicit string payload transmission flawlessly
+      //await the response from Roboflow's API with the image data
       const response = await axios({
         method: "POST",
         url: cleanUrl,
@@ -113,7 +113,7 @@ export default function DetectorScreen() {
       }
 
       const predictions: PredictionBox[] = json.predictions || [];
-      // --- RUN THE WATER SAFETY SCORING ENGINE ---
+      //water scoring logic based on particle count and density percentage
 const totalImageArea = imageWidth * imageHeight;
 let totalMicroplasticArea = 0;
 
@@ -124,16 +124,14 @@ predictions.forEach((box) => {
 const densityPercentage = (totalMicroplasticArea / totalImageArea) * 100;
 const particleCount = predictions.length;
 
-// 🛠️ BALANCED SCORING ENGINE (Better for Judges):
-// Start at 100 points
-// Subtract only 1.5 points per particle (instead of 5)
-// Subtract 5 points per 1% of surface density area (instead of 15)
+
+//starts at 100 points, subtracts 1.5 points per particle and 5 points per 1% of density area
 const baseScore = 100.0 - (particleCount * 1.5) - (densityPercentage * 5.0);
 
-// Clamp the score strictly between 0.0 and 100.0
+//make sure the score is between 0 and 100
 const safetyScore = Math.max(0.0, Math.min(100.0, baseScore));
 
-// Update the descriptor limits to feel more intuitive
+//update the rating based on the safety score
 let rating = "Danger / High Contamination";
 if (safetyScore >= 80) {
   rating = "Excellent / Safe";
@@ -141,7 +139,7 @@ if (safetyScore >= 80) {
   rating = "Caution / Moderate Contamination";
 }
 
-      // Save everything to update layouts
+      //set the results and boxes state with the calculated metrics and predictions
       setResults({
         safety_score: Math.round(safetyScore * 10) / 10,
         rating: rating,
@@ -217,8 +215,8 @@ if (safetyScore >= 80) {
 
       {loading && (
         <View style={{ marginVertical: 20 }}>
-          <ActivityIndicator size="large" color="#1A237E" />
-          <Text style={styles.loadingText}>Connecting to Roboflow Cloud Engine...</Text>
+          <ActivityIndicator size="large" color="#1a567e" />
+          <Text style={styles.loadingText}>Connecting to microplastic detection engine...</Text>
         </View>
       )}
 
