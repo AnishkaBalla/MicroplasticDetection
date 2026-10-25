@@ -46,18 +46,21 @@ export default function Index() {
        contentContainerStyle={styles.container}
        showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>
-          Microplastic{"\n"}Detection
+          MicroScan
         </Text>
-
+        <Text style={styles.description1}>
+          Microplastic Detection and Water Safety Assessment
+        </Text>
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Purpose</Text>
 
           <Text style={styles.description}>
-            In this app, you are able to import an image of a
+            Using this app, you are able to import an image of a
             microscopic water sample with microplastic particles
             in it, and the built-in model will output a water
             consumption safety score, as well as a percentage
-            of microplastics in the image.
+            of microplastics in the image. In addition, you can
+            view water quality reports based on zip code.
           </Text>
         </View>
       </ScrollView>
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
     maxWidth: "90%",
     color: "white",
     textAlign: "center",
-    marginBottom: 30,
+    marginBottom: 5,
     lineHeight: titleSize + 8,
     alignSelf: "center",
     fontFamily: 'Gelasio_700Bold_Italic',
@@ -111,5 +114,16 @@ const styles = StyleSheet.create({
     fontFamily: 'DMSans_400Regular',
     maxWidth: "90%",
     alignSelf: "center",
+  },
+  description1: {
+    color: "white",
+    fontSize: descriptionSize,
+    textAlign: "center",
+    fontFamily: 'DMSans_400Regular',
+    maxWidth: "90%",
+    alignSelf: "center",
+    paddingBottom: 40,
+    
+    
   },
 });
